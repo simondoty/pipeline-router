@@ -36,13 +36,21 @@ Router.prototype.dispatch = function(req, res) {
             req.body = req.body || {};
             req.body[field] = value;            
         })
+
+        .on('file', function(name, file) {
+          req.files = req.files || [];
+          req.files[name] = file;
+        });
+
         .on('error', function(err) {
             req.body = err;
             that.emit('body', err);
         })
+
         .on('end', function() {
             that.emit('body', req.body);
         })
+        
         .parse(req);
     }
 
