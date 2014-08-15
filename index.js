@@ -40,7 +40,7 @@ Router.prototype.dispatch = function(req, res) {
         .on('file', function(name, file) {
           req.files = req.files || [];
           req.files[name] = file;
-        });
+        })
 
         .on('error', function(err) {
             req.body = err;
