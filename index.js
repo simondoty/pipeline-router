@@ -44,11 +44,11 @@ Router.prototype.dispatch = function(req, res) {
 
         .on('error', function(err) {
             req.body = err;
-            req.emit('bodyParse', err);
+            that.emit('body', err);
         })
 
         .on('end', function() {
-            req.emit('bodyParse', req.body);
+            that.emit('body', req.body);
         })
         
         .parse(req);
@@ -105,7 +105,7 @@ Router.prototype.use = function(method, urlformat, callback) {
             req.query = req.urlParsed.query;
 
             if (req.method == 'POST' && !that.parsed) {
-                req.on('bodyParse', function() {
+                that.on('body', function() {
                     callback(req, res);
                 });
             }
