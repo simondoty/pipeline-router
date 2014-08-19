@@ -32,6 +32,8 @@ Router.prototype.dispatch = function(req, res) {
     if (req.method == 'POST') {
         var form = new formidable.IncomingForm();
 
+        form.keepExtensions = true;
+
         form.on('field', function(field, value) {
             req.body = req.body || {};
             req.body[field] = value;            
